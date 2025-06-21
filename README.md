@@ -9,6 +9,10 @@ Dự án React với TypeScript được tạo với Create React App.
 - 🎨 CSS hiện đại với gradient và glassmorphism
 - 📱 Responsive design
 - ⚡ Web Vitals optimization
+- 🔢 Bộ đếm tương tác
+- 📝 Todo List với quản lý công việc
+- 🌤️ Weather Widget với dữ liệu thời tiết
+- 🧮 Calculator với giao diện iOS
 
 ## Cài đặt
 
@@ -39,6 +43,13 @@ vns/
 │   ├── index.html
 │   └── manifest.json
 ├── src/
+│   ├── components/
+│   │   ├── TodoList.tsx
+│   │   ├── TodoList.css
+│   │   ├── WeatherWidget.tsx
+│   │   ├── WeatherWidget.css
+│   │   ├── Calculator.tsx
+│   │   └── Calculator.css
 │   ├── App.tsx
 │   ├── App.css
 │   ├── index.tsx
@@ -48,6 +59,31 @@ vns/
 ├── tsconfig.json
 └── README.md
 ```
+
+## Components
+
+### 🔢 Bộ đếm
+- Tăng/giảm số đếm
+- Reset về 0
+- Giao diện đẹp với animation
+
+### 📝 Todo List
+- Thêm/xóa công việc
+- Đánh dấu hoàn thành
+- Thống kê số lượng công việc
+- Responsive design
+
+### 🌤️ Weather Widget
+- Hiển thị nhiệt độ và điều kiện thời tiết
+- Cập nhật tự động mỗi 30 giây
+- Animation cho icon thời tiết
+- Thông tin độ ẩm và tốc độ gió
+
+### 🧮 Calculator
+- Máy tính với giao diện iOS
+- Các phép tính cơ bản (+, -, ×, ÷)
+- Chức năng AC, ±, %
+- Hiển thị biểu thức đang tính
 
 ## Học thêm
 

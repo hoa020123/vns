@@ -1,0 +1,137 @@
+.calculator-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  margin: 2rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.calculator-container h2 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.calculator {
+  max-width: 320px;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.calculator-display {
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: right;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.calculator-expression {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0.5rem;
+  min-height: 1.2rem;
+}
+
+.calculator-value {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: white;
+  line-height: 1;
+}
+
+.calculator-keypad {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.calculator-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.calc-btn {
+  width: 60px;
+  height: 60px;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.calc-btn:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+.calc-btn:active {
+  transform: scale(0.95);
+}
+
+.calc-btn-function {
+  background: #a5a5a5;
+  color: #000;
+}
+
+.calc-btn-operator {
+  background: #ff9500;
+}
+
+.calc-btn-operator.active {
+  background: white;
+  color: #ff9500;
+}
+
+.calc-btn-equals {
+  background: #ff9500;
+}
+
+.calc-btn-zero {
+  grid-column: span 2;
+  width: 135px;
+  border-radius: 30px;
+  justify-content: flex-start;
+  padding-left: 1.5rem;
+}
+
+/* Number buttons */
+.calc-btn:not(.calc-btn-function):not(.calc-btn-operator):not(.calc-btn-equals) {
+  background: #333;
+}
+
+@media (max-width: 768px) {
+  .calculator {
+    max-width: 280px;
+    padding: 1rem;
+  }
+  
+  .calc-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+  
+  .calc-btn-zero {
+    width: 110px;
+  }
+  
+  .calculator-value {
+    font-size: 2rem;
+  }
+} 
