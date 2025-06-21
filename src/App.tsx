@@ -3,10 +3,12 @@ import './App.css';
 import TodoList from './components/TodoList';
 import WeatherWidget from './components/WeatherWidget';
 import Calculator from './components/Calculator';
+import Notes from './components/Notes';
+import PomodoroTimer from './components/PomodoroTimer';
 
 function App() {
   const [count, setCount] = useState(0);
-  const [activeTab, setActiveTab] = useState<'counter' | 'todo' | 'weather' | 'calculator'>('counter');
+  const [activeTab, setActiveTab] = useState<'counter' | 'todo' | 'weather' | 'calculator' | 'notes' | 'pomodoro'>('counter');
 
   const renderContent = () => {
     switch (activeTab) {
@@ -16,6 +18,10 @@ function App() {
         return <WeatherWidget />;
       case 'calculator':
         return <Calculator />;
+      case 'notes':
+        return <Notes />;
+      case 'pomodoro':
+        return <PomodoroTimer />;
       default:
         return (
           <div className="card">
@@ -78,6 +84,18 @@ function App() {
             >
               🧮 Máy tính
             </button>
+            <button 
+              className={`tab-btn ${activeTab === 'notes' ? 'active' : ''}`}
+              onClick={() => setActiveTab('notes')}
+            >
+              📝 Ghi chú
+            </button>
+            <button 
+              className={`tab-btn ${activeTab === 'pomodoro' ? 'active' : ''}`}
+              onClick={() => setActiveTab('pomodoro')}
+            >
+              🍅 Pomodoro
+            </button>
           </div>
 
           {renderContent()}
@@ -102,6 +120,10 @@ function App() {
             <div className="feature">
               <h3>🛠️ Tools</h3>
               <p>Todo, Calculator, Weather Widget</p>
+            </div>
+            <div className="feature">
+              <h3>💾 LocalStorage</h3>
+              <p>Lưu trữ dữ liệu cục bộ</p>
             </div>
           </div>
         </div>

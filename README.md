@@ -13,6 +13,8 @@ Dự án React với TypeScript được tạo với Create React App.
 - 📝 Todo List với quản lý công việc
 - 🌤️ Weather Widget với dữ liệu thời tiết
 - 🧮 Calculator với giao diện iOS
+- 📝 Notes với localStorage
+- 🍅 Pomodoro Timer với thông báo
 
 ## Cài đặt
 
@@ -49,7 +51,11 @@ vns/
 │   │   ├── WeatherWidget.tsx
 │   │   ├── WeatherWidget.css
 │   │   ├── Calculator.tsx
-│   │   └── Calculator.css
+│   │   ├── Calculator.css
+│   │   ├── Notes.tsx
+│   │   ├── Notes.css
+│   │   ├── PomodoroTimer.tsx
+│   │   └── PomodoroTimer.css
 │   ├── App.tsx
 │   ├── App.css
 │   ├── index.tsx
@@ -84,6 +90,28 @@ vns/
 - Các phép tính cơ bản (+, -, ×, ÷)
 - Chức năng AC, ±, %
 - Hiển thị biểu thức đang tính
+
+### 📝 Notes
+- Quản lý ghi chú với localStorage
+- Tìm kiếm ghi chú
+- Chỉnh sửa và xóa ghi chú
+- Layout sidebar và content
+- Màu sắc đa dạng cho ghi chú
+
+### 🍅 Pomodoro Timer
+- Timer với progress ring animation
+- Cài đặt thời gian làm việc/nghỉ
+- Thông báo khi timer kết thúc
+- Đếm số chu kỳ hoàn thành
+- Nghỉ dài sau mỗi 4 chu kỳ
+
+## Tính năng nâng cao
+
+- **LocalStorage**: Lưu trữ dữ liệu ghi chú cục bộ
+- **Notifications**: Thông báo khi Pomodoro timer kết thúc
+- **Responsive Design**: Tối ưu cho mobile và desktop
+- **Modern UI**: Glassmorphism effects và animations
+- **TypeScript**: Type safety cho tất cả components
 
 ## Học thêm
 

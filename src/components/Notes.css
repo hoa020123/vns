@@ -1,0 +1,237 @@
+.notes-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  margin: 2rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.notes-container h2 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.notes-header {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.search-box {
+  flex: 1;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.notes-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  height: 500px;
+}
+
+.notes-sidebar {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.notes-sidebar h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.note-item {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 4px solid;
+}
+
+.note-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(5px);
+}
+
+.note-item.selected {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: #ffd700;
+}
+
+.note-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.note-preview {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.note-date {
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.notes-content {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.note-editor {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.note-editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.note-title-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.note-title-input:focus {
+  outline: none;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.note-title-input:disabled {
+  background: rgba(255, 255, 255, 0.5);
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.note-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.note-content-input {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  line-height: 1.6;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  resize: none;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.note-content-input:focus {
+  outline: none;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.note-content-input:disabled {
+  background: rgba(255, 255, 255, 0.5);
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.note-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.empty-notes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+
+.empty-notes h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-notes p {
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .notes-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .notes-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  
+  .notes-sidebar {
+    max-height: 300px;
+  }
+  
+  .note-editor-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .note-actions {
+    justify-content: center;
+  }
+  
+  .note-info {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+} 
