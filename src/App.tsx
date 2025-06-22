@@ -5,10 +5,12 @@ import WeatherWidget from './components/WeatherWidget';
 import Calculator from './components/Calculator';
 import Notes from './components/Notes';
 import PomodoroTimer from './components/PomodoroTimer';
+import Calendar from './components/Calendar';
+import PasswordGenerator from './components/PasswordGenerator';
 
 function App() {
   const [count, setCount] = useState(0);
-  const [activeTab, setActiveTab] = useState<'counter' | 'todo' | 'weather' | 'calculator' | 'notes' | 'pomodoro'>('counter');
+  const [activeTab, setActiveTab] = useState<'counter' | 'todo' | 'weather' | 'calculator' | 'notes' | 'pomodoro' | 'calendar' | 'password'>('counter');
 
   const renderContent = () => {
     switch (activeTab) {
@@ -22,6 +24,10 @@ function App() {
         return <Notes />;
       case 'pomodoro':
         return <PomodoroTimer />;
+      case 'calendar':
+        return <Calendar />;
+      case 'password':
+        return <PasswordGenerator />;
       default:
         return (
           <div className="card">
@@ -96,6 +102,18 @@ function App() {
             >
               🍅 Pomodoro
             </button>
+            <button 
+              className={`tab-btn ${activeTab === 'calendar' ? 'active' : ''}`}
+              onClick={() => setActiveTab('calendar')}
+            >
+              📅 Lịch
+            </button>
+            <button 
+              className={`tab-btn ${activeTab === 'password' ? 'active' : ''}`}
+              onClick={() => setActiveTab('password')}
+            >
+              🔐 Mật khẩu
+            </button>
           </div>
 
           {renderContent()}
@@ -119,11 +137,19 @@ function App() {
             </div>
             <div className="feature">
               <h3>🛠️ Tools</h3>
-              <p>Todo, Calculator, Weather Widget</p>
+              <p>Todo, Calculator, Weather Widget, Calendar</p>
+            </div>
+            <div className="feature">
+              <h3>🔐 Security</h3>
+              <p>Password Generator với độ mạnh</p>
             </div>
             <div className="feature">
               <h3>💾 LocalStorage</h3>
               <p>Lưu trữ dữ liệu cục bộ</p>
+            </div>
+            <div className="feature">
+              <h3>📱 Responsive</h3>
+              <p>Tối ưu cho mobile và desktop</p>
             </div>
           </div>
         </div>

@@ -15,6 +15,8 @@ Dự án React với TypeScript được tạo với Create React App.
 - 🧮 Calculator với giao diện iOS
 - 📝 Notes với localStorage
 - 🍅 Pomodoro Timer với thông báo
+- 📅 Calendar với quản lý sự kiện
+- 🔐 Password Generator với độ mạnh
 
 ## Cài đặt
 
@@ -55,7 +57,11 @@ vns/
 │   │   ├── Notes.tsx
 │   │   ├── Notes.css
 │   │   ├── PomodoroTimer.tsx
-│   │   └── PomodoroTimer.css
+│   │   ├── PomodoroTimer.css
+│   │   ├── Calendar.tsx
+│   │   ├── Calendar.css
+│   │   ├── PasswordGenerator.tsx
+│   │   └── PasswordGenerator.css
 │   ├── App.tsx
 │   ├── App.css
 │   ├── index.tsx
@@ -104,6 +110,21 @@ vns/
 - Thông báo khi timer kết thúc
 - Đếm số chu kỳ hoàn thành
 - Nghỉ dài sau mỗi 4 chu kỳ
+
+### 📅 Calendar
+- Lịch tháng với navigation
+- Thêm/sửa/xóa sự kiện
+- Màu sắc tùy chỉnh cho sự kiện
+- Hiển thị sự kiện theo ngày
+- Lưu trữ với localStorage
+
+### 🔐 Password Generator
+- Tạo mật khẩu tùy chỉnh
+- Điều chỉnh độ dài (4-50 ký tự)
+- Chọn loại ký tự (chữ hoa, chữ thường, số, ký tự đặc biệt)
+- Loại trừ ký tự tương tự và mơ hồ
+- Đánh giá độ mạnh mật khẩu
+- Copy mật khẩu vào clipboard
 
 ## Tính năng nâng cao
 
