@@ -231,7 +231,7 @@ const PasswordGenerator: React.FC = () => {
               checked={options.excludeAmbiguous}
               onChange={(e) => setOptions({...options, excludeAmbiguous: e.target.checked})}
             />
-            <span>Loại trừ ký tự mơ hồ ({[()]})</span>
+            <span>Loại trừ ký tự mơ hồ (&#123;&#91;&#40;&#41;&#93;&#125;)</span>
           </label>
         </div>
       </div>

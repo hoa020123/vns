@@ -7,10 +7,12 @@ import Notes from './components/Notes';
 import PomodoroTimer from './components/PomodoroTimer';
 import Calendar from './components/Calendar';
 import PasswordGenerator from './components/PasswordGenerator';
+import Chat from './components/Chat';
+import ChatDemo from './components/ChatDemo';
 
 function App() {
   const [count, setCount] = useState(0);
-  const [activeTab, setActiveTab] = useState<'counter' | 'todo' | 'weather' | 'calculator' | 'notes' | 'pomodoro' | 'calendar' | 'password'>('counter');
+  const [activeTab, setActiveTab] = useState<'counter' | 'todo' | 'weather' | 'calculator' | 'notes' | 'pomodoro' | 'calendar' | 'password' | 'chat' | 'chatdemo'>('counter');
 
   const renderContent = () => {
     switch (activeTab) {
@@ -28,6 +30,10 @@ function App() {
         return <Calendar />;
       case 'password':
         return <PasswordGenerator />;
+      case 'chat':
+        return <Chat />;
+      case 'chatdemo':
+        return <ChatDemo />;
       default:
         return (
           <div className="card">
@@ -114,6 +120,18 @@ function App() {
             >
               🔐 Mật khẩu
             </button>
+            <button 
+              className={`tab-btn ${activeTab === 'chatdemo' ? 'active' : ''}`}
+              onClick={() => setActiveTab('chatdemo')}
+            >
+              🎮 Chat Demo
+            </button>
+            <button 
+              className={`tab-btn ${activeTab === 'chat' ? 'active' : ''}`}
+              onClick={() => setActiveTab('chat')}
+            >
+              🤖 AI Chat
+            </button>
           </div>
 
           {renderContent()}
@@ -142,6 +160,10 @@ function App() {
             <div className="feature">
               <h3>🔐 Security</h3>
               <p>Password Generator với độ mạnh</p>
+            </div>
+            <div className="feature">
+              <h3>🤖 AI Chat</h3>
+              <p>Kết nối với AI Agent trên Digital Ocean</p>
             </div>
             <div className="feature">
               <h3>💾 LocalStorage</h3>
