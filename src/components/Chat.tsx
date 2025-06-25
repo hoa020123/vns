@@ -21,7 +21,10 @@ const Chat: React.FC<ChatProps> = ({
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<'idle' | 'connecting' | 'connected' | 'error'>('idle');
+  const [showWelcome, setShowWelcome] = useState(true);
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   // Load messages from localStorage on component mount
   useEffect(() => {
@@ -33,6 +36,7 @@ const Chat: React.FC<ChatProps> = ({
           timestamp: new Date(msg.timestamp)
         }));
         setMessages(parsedMessages);
+        setShowWelcome(parsedMessages.length <= 1);
       } catch (error) {
         console.error('Error loading chat history:', error);
         setMessages([{
@@ -41,6 +45,7 @@ const Chat: React.FC<ChatProps> = ({
           sender: 'ai',
           timestamp: new Date()
         }]);
+        setShowWelcome(true);
       }
     } else {
       setMessages([{
@@ -49,6 +54,7 @@ const Chat: React.FC<ChatProps> = ({
         sender: 'ai',
         timestamp: new Date()
       }]);
+      setShowWelcome(true);
     }
   }, []);
 
@@ -56,6 +62,14 @@ const Chat: React.FC<ChatProps> = ({
   useEffect(() => {
     localStorage.setItem('chat-messages', JSON.stringify(messages));
   }, [messages]);
+
+  // Auto-resize textarea
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.style.height = 'auto';
+      inputRef.current.style.height = Math.min(inputRef.current.scrollHeight, 120) + 'px';
+    }
+  }, [inputText]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -112,6 +126,7 @@ const Chat: React.FC<ChatProps> = ({
       timestamp: new Date()
     };
     setMessages(prev => [...prev, newMessage]);
+    setShowWelcome(false);
   };
 
   const sendMessage = async () => {
@@ -121,6 +136,7 @@ const Chat: React.FC<ChatProps> = ({
     setInputText('');
     addMessage(userMessage, 'user');
     setIsLoading(true);
+    setIsTyping(true);
 
     try {
       const response = await fetch(apiEndpoint, {
@@ -155,6 +171,7 @@ const Chat: React.FC<ChatProps> = ({
       addMessage(`❌ Lỗi kết nối: ${(error as Error).message}`, 'ai');
     } finally {
       setIsLoading(false);
+      setIsTyping(false);
     }
   };
 
@@ -174,6 +191,7 @@ const Chat: React.FC<ChatProps> = ({
         sender: 'ai',
         timestamp: new Date()
       }]);
+      setShowWelcome(true);
       localStorage.removeItem('chat-messages');
     }
   };
@@ -211,10 +229,22 @@ const Chat: React.FC<ChatProps> = ({
     }
   };
 
+  const quickQuestions = [
+    'Bạn có thể giúp gì cho tôi?',
+    'Giải thích về AI',
+    'Viết code JavaScript',
+    'Dịch sang tiếng Anh'
+  ];
+
+  const handleQuickQuestion = (question: string) => {
+    setInputText(question);
+    inputRef.current?.focus();
+  };
+
   return (
     <div className="chat-container">
       <div className="chat-header">
-        <h2>🤖 AI Chat Assistant</h2>
+        <h2>AI Chat Assistant</h2>
         <div className="chat-controls">
           <button 
             className={`connection-btn ${connectionStatus}`}
@@ -233,6 +263,35 @@ const Chat: React.FC<ChatProps> = ({
       </div>
 
       <div className="chat-messages">
+        {showWelcome && messages.length <= 1 && (
+          <div className="welcome-screen">
+            <div className="welcome-content">
+              <div className="welcome-logo">
+                <div className="logo-circle">
+                  <span className="logo-icon">✨</span>
+                </div>
+              </div>
+              <h3>Chào mừng đến với AI Assistant!</h3>
+              <p>Tôi có thể giúp bạn với nhiều vấn đề khác nhau. Hãy thử hỏi tôi một câu hỏi!</p>
+              
+              <div className="quick-questions">
+                <h4>Gợi ý:</h4>
+                <div className="question-grid">
+                  {quickQuestions.map((question, index) => (
+                    <button
+                      key={index}
+                      className="quick-question-btn"
+                      onClick={() => handleQuickQuestion(question)}
+                    >
+                      {question}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {messages.map((message) => (
           <div 
             key={message.id} 
@@ -250,7 +309,7 @@ const Chat: React.FC<ChatProps> = ({
           </div>
         ))}
         
-        {isLoading && (
+        {isTyping && (
           <div className="message ai-message">
             <div className="message-content">
               <div className="typing-indicator">
@@ -269,6 +328,7 @@ const Chat: React.FC<ChatProps> = ({
       <div className="chat-input-container">
         <div className="input-wrapper">
           <textarea
+            ref={inputRef}
             className="chat-input"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
