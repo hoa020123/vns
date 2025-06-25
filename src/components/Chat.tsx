@@ -1,4 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import './Chat.css';
 
 interface Message {
@@ -12,6 +15,61 @@ interface ChatProps {
   apiEndpoint?: string;
   apiKey?: string;
 }
+
+// CopyButton cho code block
+function CopyButton({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <button
+      className="copy-btn"
+      onClick={() => {
+        navigator.clipboard.writeText(text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500);
+      }}
+      style={{
+        position: 'absolute',
+        top: 8,
+        right: 8,
+        zIndex: 2,
+        background: '#222',
+        color: '#fff',
+        border: 'none',
+        borderRadius: 4,
+        padding: '2px 8px',
+        fontSize: 12,
+        cursor: 'pointer',
+        opacity: 0.85
+      }}
+    >
+      {copied ? '✓ Copied' : 'Copy'}
+    </button>
+  );
+}
+
+// Custom render code block cho ReactMarkdown
+const markdownComponents = {
+  code({node, inline, className, children, ...props}: any) {
+    const match = /language-(\w+)/.exec(className || '');
+    return !inline ? (
+      <div style={{ position: 'relative' }}>
+        <CopyButton text={String(children)} />
+        <SyntaxHighlighter
+          style={oneDark}
+          language={match ? match[1] : ''}
+          PreTag="div"
+          {...props}
+        >
+          {String(children).replace(/\n$/, '')}
+        </SyntaxHighlighter>
+      </div>
+    ) : (
+      <code className={className} {...props}>
+        {children}
+      </code>
+    );
+  }
+};
 
 const Chat: React.FC<ChatProps> = ({ 
   apiEndpoint = process.env.REACT_APP_AI_API_ENDPOINT || 'https://cmtwciuguyzevyngv6umqg4m.agents.do-ai.run/api/v1/chat/completions',
@@ -311,17 +369,17 @@ const Chat: React.FC<ChatProps> = ({
         {messages.map((message) => (
           <div 
             key={message.id} 
-            className={`message ${message.sender === 'user' ? 'user-message' : 'ai-message'}`}
+            className={`message-row ${message.sender}`}
           >
-            <div className="message-content">
-              <div className="message-text">{message.text}</div>
-              <div className="message-time">
-                {message.timestamp.toLocaleTimeString('vi-VN')}
-              </div>
+            {message.sender === 'ai' && <div className="avatar ai-avatar">🤖</div>}
+            <div className={`bubble ${message.sender}`}>
+              {message.sender === 'ai' ? (
+                <ReactMarkdown components={markdownComponents}>{message.text}</ReactMarkdown>
+              ) : (
+                message.text
+              )}
             </div>
-            <div className="message-avatar">
-              {message.sender === 'user' ? '👤' : '🤖'}
-            </div>
+            {message.sender === 'user' && <div className="avatar user-avatar">👤</div>}
           </div>
         ))}
         
@@ -365,6 +423,20 @@ const Chat: React.FC<ChatProps> = ({
         <div className="input-hint">
           Nhấn Enter để gửi, Shift+Enter để xuống dòng • {messages.length - 1} tin nhắn
         </div>
+        {!showWelcome && (
+          <div className="quick-questions-bar">
+            {quickQuestions.map((question, index) => (
+              <button
+                key={index}
+                className="quick-question-btn-bar"
+                onClick={() => handleQuickQuestion(question)}
+                disabled={isLoading}
+              >
+                {question}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
