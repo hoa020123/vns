@@ -23,8 +23,21 @@ const Chat: React.FC<ChatProps> = ({
   const [connectionStatus, setConnectionStatus] = useState<'idle' | 'connecting' | 'connected' | 'error'>('idle');
   const [showWelcome, setShowWelcome] = useState(true);
   const [isTyping, setIsTyping] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  // Check for dark mode preference
+  useEffect(() => {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setIsDarkMode(prefersDark);
+  }, []);
+
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    document.documentElement.classList.toggle('dark-mode');
+  };
 
   // Load messages from localStorage on component mount
   useEffect(() => {
@@ -242,7 +255,7 @@ const Chat: React.FC<ChatProps> = ({
   };
 
   return (
-    <div className="chat-container">
+    <div className={`chat-container ${isDarkMode ? 'dark-mode' : ''}`}>
       <div className="chat-header">
         <h2>AI Chat Assistant</h2>
         <div className="chat-controls">
@@ -252,6 +265,9 @@ const Chat: React.FC<ChatProps> = ({
             disabled={isLoading}
           >
             {getConnectionStatusText()}
+          </button>
+          <button className="theme-btn" onClick={toggleDarkMode}>
+            {isDarkMode ? '☀️' : '🌙'}
           </button>
           <button className="export-btn" onClick={exportChat}>
             📥 Xuất chat
@@ -349,38 +365,6 @@ const Chat: React.FC<ChatProps> = ({
         <div className="input-hint">
           Nhấn Enter để gửi, Shift+Enter để xuống dòng • {messages.length - 1} tin nhắn
         </div>
-      </div>
-
-      <div className="chat-config">
-        <details>
-          <summary>⚙️ Cấu hình API</summary>
-          <div className="config-content">
-            <div className="config-item">
-              <label>API Endpoint:</label>
-              <input 
-                type="text" 
-                value={apiEndpoint}
-                onChange={(e) => window.location.reload()}
-                placeholder="https://your-ai-agent.com/api/chat"
-                disabled
-              />
-            </div>
-            <div className="config-item">
-              <label>API Key:</label>
-              <input 
-                type="password" 
-                value={apiKey ? '••••••••' : ''}
-                placeholder="Nhập API key của bạn"
-                disabled
-              />
-            </div>
-            <p className="config-note">
-              Để thay đổi cấu hình, hãy tạo file .env.local và thêm:<br/>
-              REACT_APP_AI_API_ENDPOINT=your_endpoint_here<br/>
-              REACT_APP_AI_API_KEY=your_api_key_here
-            </p>
-          </div>
-        </details>
       </div>
     </div>
   );
